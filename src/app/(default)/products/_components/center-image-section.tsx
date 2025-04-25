@@ -32,6 +32,7 @@ export const CenterSection = ({ className, images, setApi }: CenterSectionProps)
                                 fill
                                 priority={index === 0}
                                 className='object-cover object-center'
+                                sizes='(max-width: 1024px) 100vw, 50vw'
                             />
                         </CarouselItem>
                     ))}

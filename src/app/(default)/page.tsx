@@ -1,12 +1,10 @@
+import { ShoppingBasket, UsersRound } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
 import { Section } from '@/components/Section';
 import { Button } from '@/components/ui/button';
-import { ShoppingBasket, UsersRound } from 'lucide-react';
-
-const twoColumnsClassNames = 'grid md:grid-cols-2 gap-16 items-center justify-items-center';
-const colors1ClassNames = 'bg-primary-50 dark:bg-primary-900 text-primary-900 dark:text-primary-50';
+import { classNames } from '@/constants/class-names';
 
 export default function Home() {
     return (
@@ -34,8 +32,8 @@ export default function Home() {
                 </Section.Content>
             </Section>
             <Section>
-                <Section.Background className={colors1ClassNames} />
-                <Section.Content className={twoColumnsClassNames}>
+                <Section.Background className={classNames.colors1} />
+                <Section.Content className={classNames.twoColumns}>
                     <div>
                         <p>
                             Artisan Pastry LLC is a women-owned, mother-daughter pastry shop based

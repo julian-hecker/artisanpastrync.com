@@ -5,7 +5,7 @@ import { toast } from 'sonner';
 import Stripe from 'stripe';
 
 import { addCartItemAction } from '@/components/cart/actions';
-import { useCartContext } from '@/components/cart/cart-context';
+import { useCartModal } from '@/components/cart/cart-context';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -15,20 +15,20 @@ export interface AddToCartProps {
 }
 
 export function AddToCartButton({ className, variant }: AddToCartProps) {
-    const { refresh, setCheckoutReady } = useCartContext();
+    const { setOpen, fetchCart } = useCartModal();
 
     const unavailable = !variant?.metadata || !!variant.metadata.unavailable;
 
     const handleClick = async () => {
         if (!variant?.id) return;
 
-        setCheckoutReady(false);
         const { ok, message } = await addCartItemAction(null, variant.id);
 
         if (!ok) toast.error(message);
 
-        setCheckoutReady(true);
-        refresh();
+        await fetchCart();
+
+        if (ok && setOpen) setOpen(true);
     };
 
     return (

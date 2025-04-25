@@ -3,8 +3,9 @@ import { Fragment } from 'react';
 
 import { Section } from '@/components/Section';
 import { TAGS } from '@/constants/cache-tags';
-import { getAllProducts } from '@/services/product';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
+import { classNames } from '@/constants/class-names';
+import { getAllProducts } from '@/services/product';
 
 import { ProductList } from './_components/product-list';
 
@@ -15,10 +16,7 @@ export default async function ProductsPage() {
 
     return (
         <Fragment>
-            <Section
-                as='nav'
-                className='bg-primary-100 dark:bg-primary-950 text-primary-950 dark:text-primary-50'
-            >
+            <Section as='nav' className={classNames.colors3}>
                 <Section.Content className='flex flex-row justify-between py-4'>
                     <Breadcrumbs items={{ Home: '/', Products: '/products' }} />
                 </Section.Content>

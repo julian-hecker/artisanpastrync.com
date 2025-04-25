@@ -1,4 +1,4 @@
-import { House, ShoppingBasket, UsersRound } from 'lucide-react';
+import { CakeSlice, House, UsersRound } from 'lucide-react';
 import { createElement, ReactNode } from 'react';
 
 export interface NavLink {
@@ -10,5 +10,5 @@ export interface NavLink {
 export const LINKS: NavLink[] = [
     { label: 'Home', href: '/', icon: createElement(House) },
     { label: 'About', href: '/about', icon: createElement(UsersRound) },
-    { label: 'Products', href: '/products', icon: createElement(ShoppingBasket) },
+    { label: 'Products', href: '/products', icon: createElement(CakeSlice) },
 ];
