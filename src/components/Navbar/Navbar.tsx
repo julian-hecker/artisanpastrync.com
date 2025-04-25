@@ -2,16 +2,16 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FC, ReactNode, useEffect, useState } from 'react';
+import { FC, ReactNode, useState } from 'react';
 
 import { AuthButton } from '@/components/auth/auth-button';
 import { Logo } from '@/components/Logo';
 import { ThemeToggle } from '@/components/shared/theme-toggle';
 import { Button, ButtonProps } from '@/components/ui/button';
+import { LINKS, NavLink } from '@/constants/navigation';
+import { useIsScrolled } from '@/hooks/useIsScrolled';
 import { cn } from '@/lib/utils';
 
-import { LINKS, NavLink } from '@/constants/navigation';
-import { CartView } from '../cart/cart-view';
 import './navbar.css';
 
 export type NavButton = Pick<ButtonProps, 'onClick' | 'variant' | 'className'> & {
@@ -30,28 +30,11 @@ const buttonClassNames =
 
 export const Navbar: FC<NavbarProps> = ({ className, links = LINKS, enableScroll }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const [isScrolled, setIsScrolled] = useState(false);
     const pathname = usePathname();
     // by default, enable scroll on landing page only
     enableScroll ??= pathname === '/';
 
-    useEffect(() => {
-        const updateIsScrolled = () => {
-            setIsScrolled(window.scrollY > 50);
-        };
-
-        updateIsScrolled();
-
-        const handleScroll = () => {
-            updateIsScrolled();
-        };
-
-        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-        enableScroll && window.addEventListener('scroll', handleScroll);
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    }, [enableScroll]);
+    const isScrolled = useIsScrolled({ disabled: !enableScroll });
 
     const isSolid = !enableScroll || isMenuOpen || isScrolled;
     return (
@@ -117,7 +100,6 @@ export const Navbar: FC<NavbarProps> = ({ className, links = LINKS, enableScroll
                     transform: isMenuOpen ? 'translateY(0)' : 'translateY(-100%)',
                     opacity: isMenuOpen ? 1 : 0,
                 }}
-                aria-hidden={!isMenuOpen}
             >
                 <div className='container mx-auto mt-16 px-4 pt-4 overflow-y-auto'>
                     <nav className='space-y-4'>
@@ -143,13 +125,3 @@ export const Navbar: FC<NavbarProps> = ({ className, links = LINKS, enableScroll
 };
 
 export default Navbar;
-
-// export function checkMenuStatusClick() {
-//     const [isMenuOpen, setIsMenuOpen] = useState(false)
-//     return () => setIsMenuOpen(false);
-// }
-
-// export function checkMenuStatusTab() {
-//     const [isMenuOpen] = useState(false)
-//     return isMenuOpen ? 0 : -1;
-// }
