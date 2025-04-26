@@ -1,29 +1,20 @@
-'use server';
-
 import { Section, SectionContent } from '@/components';
-import { getUser, signOut } from '@/lib/auth';
-import { GoogleLoginButton } from '@/components/auth/google-login';
+import { getUser } from '@/lib/auth';
+import { classNames, heightMinusHeader } from '@/constants/class-names';
+import { redirect } from 'next/navigation';
+import { AuthCard } from '@/components/auth/auth-card';
 
-async function signOutAction() {
-    'use server';
-    await signOut();
-}
-
-// https://nextjs.org/docs/app/api-reference/file-conventions/page
 export default async function LoginPage() {
     const user = await getUser();
 
+    if (user) return redirect('/');
+
     return (
-        <Section>
-            <SectionContent>
-                {user ? (
-                    <form action={signOutAction}>
-                        <button>Sign Out</button>
-                    </form>
-                ) : (
-                    <GoogleLoginButton />
-                )}
-                <p>session: {JSON.stringify(user)}</p>
+        <Section className='h-screen' style={{ height: heightMinusHeader }}>
+            <Section.Background image='/images/chiffones.jpg' />
+            <Section.Overlay className='bg-primary' opacity={0.5} />
+            <SectionContent className={classNames.twoColumns}>
+                <AuthCard />
             </SectionContent>
         </Section>
     );

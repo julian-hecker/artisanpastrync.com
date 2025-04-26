@@ -42,7 +42,7 @@ export const Footer = () => {
                     {/* Links Section */}
                     <div>
                         <h2 className='text-xl font-bold mb-4'>Quick Links</h2>
-                        <ul className='space-y-2'>
+                        <ul className='gap-4 flex flex-row md:flex-col'>
                             {LINKS.map(({ href, label }, index) => (
                                 <li key={index}>
                                     <Button asChild variant='ghost'>

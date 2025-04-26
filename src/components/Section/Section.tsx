@@ -53,10 +53,9 @@ export const SectionBackground: FC<SectionBackgroundProps> = ({
 
     if (image)
         return (
-            <div
-                className={cn(baseClassNames, 'bg-cover bg-center', className)}
-                style={{ ...style, backgroundImage: `url(${image})` }}
-            ></div>
+            <div className={cn(baseClassNames, className)} style={style}>
+                <Image src={image} alt='' fill className='object-cover object-center' priority />
+            </div>
         );
 
     if (color)
@@ -99,12 +98,14 @@ export const SectionOverlay: FC<SectionOverlayProps> = ({
 export interface SectionContentProps {
     className?: string;
     children?: React.ReactNode;
+    style?: CSSProperties;
 }
 
-export const SectionContent: FC<SectionContentProps> = ({ className, children }) => {
+export const SectionContent: FC<SectionContentProps> = ({ className, children, style }) => {
     return (
         <div
             className={cn`section__content relative container h-full mx-auto px-4 py-8 ${className}`}
+            style={style}
         >
             {children}
         </div>
