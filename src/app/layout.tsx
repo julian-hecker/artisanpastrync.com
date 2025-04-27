@@ -5,6 +5,7 @@ import { PropsWithChildren } from 'react';
 import { Providers } from '@/components/providers';
 
 import './globals.css';
+import { CartModal } from '@/components/cart/cart-modal';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,7 +18,10 @@ export default function RootLayout({ children }: PropsWithChildren<object>) {
     return (
         <html lang='en' suppressHydrationWarning>
             <body className={inter.className}>
-                <Providers>{children}</Providers>
+                <Providers>
+                    {children}
+                    <CartModal />
+                </Providers>
             </body>
         </html>
     );

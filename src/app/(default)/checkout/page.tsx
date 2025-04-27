@@ -6,6 +6,8 @@ import { getURL } from '@/lib/utils';
 import { getCartStripeLineItems } from '@/services/cart';
 
 import { EmbeddedCheckoutForm } from './_components/embedded-checkout';
+import { Section } from '@/components';
+import { heightMinusHeader } from '@/constants/class-names';
 
 export default async function CheckoutPage() {
     const user = await getUser();
@@ -72,5 +74,11 @@ export default async function CheckoutPage() {
 
     if (!checkout.client_secret) throw new Error('Checkout creation failed');
 
-    return <EmbeddedCheckoutForm clientSecret={checkout.client_secret} />;
+    return (
+        <Section className='bg-white'>
+            <Section.Content style={{ minHeight: heightMinusHeader }}>
+                <EmbeddedCheckoutForm clientSecret={checkout.client_secret} />
+            </Section.Content>
+        </Section>
+    );
 }

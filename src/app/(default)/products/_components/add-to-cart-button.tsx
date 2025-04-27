@@ -5,7 +5,7 @@ import { toast } from 'sonner';
 import Stripe from 'stripe';
 
 import { addCartItemAction } from '@/components/cart/actions';
-import { useCartModal } from '@/components/cart/cart-context';
+import { useCartContext } from '@/components/cart/cart-context';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -15,7 +15,7 @@ export interface AddToCartProps {
 }
 
 export function AddToCartButton({ className, variant }: AddToCartProps) {
-    const { setOpen, fetchCart } = useCartModal();
+    const { setOpen, fetchCart } = useCartContext();
 
     const unavailable = !variant?.metadata || !!variant.metadata.unavailable;
 

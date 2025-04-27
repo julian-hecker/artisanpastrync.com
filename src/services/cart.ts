@@ -63,6 +63,7 @@ export async function addItemToCart(priceId: string, quantity: number): Promise<
 }
 
 export async function editItemInCart(priceId: string, quantity: number): Promise<void> {
+    console.log('Editing item in cart', priceId, quantity);
     const cartItems = await getCartEntries();
 
     const existingItem = cartItems.find((item) => item.priceId === priceId);

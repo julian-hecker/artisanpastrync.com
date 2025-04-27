@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { FC, ReactNode, useState } from 'react';
 
 import { AuthButton } from '@/components/auth/auth-button';
+import { CartButton } from '@/components/cart/cart-button';
 import { Logo } from '@/components/Logo';
 import { ThemeToggle } from '@/components/shared/theme-toggle';
 import { Button, ButtonProps } from '@/components/ui/button';
@@ -73,7 +74,7 @@ export const Navbar: FC<NavbarProps> = ({ className, links = LINKS, enableScroll
                     <div className='hidden lg:flex space-x-4'>
                         <ThemeToggle variant='default' className={buttonClassNames} />
                         <AuthButton variant='default' className={buttonClassNames} />
-                        <CartView />
+                        <CartButton variant='default' className={buttonClassNames} />
                     </div>
                     <div className='lg:hidden flex'>
                         <button

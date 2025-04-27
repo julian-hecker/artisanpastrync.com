@@ -39,7 +39,7 @@ export async function addCartItemAction(_prevState: unknown, variantId: string) 
 }
 
 export async function removeCartItemAction(_prevState: unknown, variantId: string) {
-    removeItemsFromCart(variantId);
+    await removeItemsFromCart(variantId);
 
     return { ok: true };
 }
@@ -48,6 +48,7 @@ export async function updateItemQuantityAction(
     _prevState: unknown,
     payload: { variantId: string; quantity: number }
 ) {
+    console.log('Updating item quantity', payload);
     const { variantId, quantity } = payload;
 
     if (quantity === 0) {
@@ -57,7 +58,7 @@ export async function updateItemQuantityAction(
 
     const unavailable = await isItemUnavailable(variantId);
 
-    if (!unavailable) {
+    if (unavailable) {
         return {
             ok: false,
             message: 'This product is out of stock',
