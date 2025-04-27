@@ -4,7 +4,7 @@ import { forwardRef } from 'react';
 
 import { cn } from '@/lib/utils';
 
-export interface IconProps extends React.SVGProps<SVGSVGElement> {}
+export type IconProps = React.SVGProps<SVGSVGElement>;
 
 export const createIcon = (pathData: string, displayName: string) => {
     const IconComponent = forwardRef<SVGSVGElement, IconProps>(({ className, ...props }, ref) => (

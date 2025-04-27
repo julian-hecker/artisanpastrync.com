@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { Section } from '@/components/Section';
 import { classNames } from '@/constants/class-names';
 
-export const aboutSections = [
+const aboutSections = [
     {
         className: classNames.colors1,
         contentClassName: classNames.twoColumns,

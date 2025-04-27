@@ -1,7 +1,7 @@
-import { cn } from '@/lib/utils';
-import { GoogleLoginButton } from './google-login';
 import { classNames } from '@/constants/class-names';
-import { Separator } from '@/components/ui/separator';
+import { cn } from '@/lib/utils';
+
+import { GoogleLoginButton } from './google-login';
 
 export function AuthCard() {
     return (
@@ -12,7 +12,7 @@ export function AuthCard() {
             )}
         >
             <h2 className='text-xl font-semibold text-center'>Sign up or Log in</h2>
-            <Separator />
+            <hr className='border-primary' />
             <GoogleLoginButton />
         </div>
     );

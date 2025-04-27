@@ -6,4 +6,4 @@ export const classNames = {
     colors3: 'bg-primary-100 dark:bg-primary-950 text-primary-950 dark:text-primary-50',
 } as const;
 
-export const heightMinusHeader = 'calc(100vh - 58px)';
+export const heightMinusHeader = 'calc(100vh - 4rem)';
