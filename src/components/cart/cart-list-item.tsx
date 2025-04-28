@@ -76,7 +76,7 @@ export function CartListItem({ item }: CartListItemProps) {
                         type='number'
                         value={quantity}
                         onChange={(e) => setQuantity(e.target.valueAsNumber)}
-                        className='w-full max-w-32 h-[unset] text-center border-primary rounded-none p-0'
+                        className='w-full max-w-32 h-[unset] text-center border-primary rounded-none p-0 bg-primary-20 dark:bg-primary-900'
                         min={0}
                     />
                     <Button
