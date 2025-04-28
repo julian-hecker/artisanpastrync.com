@@ -1,12 +1,11 @@
 'use client';
 
 import { LogIn, LogOut } from 'lucide-react';
-import { useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 
 import { Button, ButtonProps } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { signOutAction } from './actions';
 
 export type AuthButtonProps = ButtonProps;
 
@@ -32,11 +31,9 @@ export function AuthButton({ className, ...props }: AuthButtonProps) {
         );
 
     return (
-        <form action={signOutAction}>
-            <Button type='submit' {...props} className={cn('gap-2', className)}>
-                <LogOut />
-                Sign Out
-            </Button>
-        </form>
+        <Button {...props} className={cn('gap-2', className)} onClick={() => signOut()}>
+            <LogOut />
+            Sign Out
+        </Button>
     );
 }

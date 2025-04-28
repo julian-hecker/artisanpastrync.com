@@ -1,6 +1,12 @@
 import { Button, ButtonProps } from '@/components/Button';
 import { GoogleIcon } from '@/components/icons';
-import { googleSignInAction } from './actions';
+import { signIn } from '@/lib/auth';
+
+async function googleSignInAction(formData: FormData) {
+    'use server';
+    const redirectTo = formData.get('redirectTo') as string;
+    await signIn('google', { redirectTo });
+}
 
 export interface GoogleLoginButtonProps extends Omit<ButtonProps, 'children'> {
     redirectTo?: string;
