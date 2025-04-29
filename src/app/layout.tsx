@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { PropsWithChildren } from 'react';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
+import { CartModal } from '@/components/cart/cart-modal';
 import { Providers } from '@/components/providers';
 
 import './globals.css';
-import { CartModal } from '@/components/cart/cart-modal';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,6 +22,7 @@ export default function RootLayout({ children }: PropsWithChildren<object>) {
                 <Providers>
                     {children}
                     <CartModal />
+                    <SpeedInsights />
                 </Providers>
             </body>
         </html>
