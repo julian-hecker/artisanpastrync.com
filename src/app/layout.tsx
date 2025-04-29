@@ -22,8 +22,8 @@ export default function RootLayout({ children }: PropsWithChildren<object>) {
                 <Providers>
                     {children}
                     <CartModal />
-                    <SpeedInsights />
                 </Providers>
+                <SpeedInsights />
             </body>
         </html>
     );
