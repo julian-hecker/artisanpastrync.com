@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { PropsWithChildren } from 'react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
+import { Analytics } from '@vercel/analytics/next';
 
 import { CartModal } from '@/components/cart/cart-modal';
 import { Providers } from '@/components/providers';
@@ -24,6 +25,7 @@ export default function RootLayout({ children }: PropsWithChildren<object>) {
                     <CartModal />
                 </Providers>
                 <SpeedInsights />
+                <Analytics />
             </body>
         </html>
     );
