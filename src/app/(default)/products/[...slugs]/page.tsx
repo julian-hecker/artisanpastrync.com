@@ -58,7 +58,7 @@ export default async function Product({ params }: ProductDetailsPageProps) {
             </Section>
             <Section as='main' className='bg-primary-50 dark:bg-primary-900'>
                 <Section.Content className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
-                    <div className='flex flex-col gap-4'>
+                    <div className='flex-1 flex flex-col gap-4'>
                         <ProductTitle title={product.name} price={selectedPrice} />
                         {!hasOnlyOneVariant && (
                             <VariantsSection
@@ -68,7 +68,10 @@ export default async function Product({ params }: ProductDetailsPageProps) {
                             />
                         )}
 
-                        <p>{product.description}</p>
+                        <div
+                            dangerouslySetInnerHTML={{ __html: product.description ?? '' }}
+                            className='flex flex-col gap-2 [&>ul]:list-[revert] [&>ul]:pl-4'
+                        />
 
                         <AddToCartButton variant={selected} />
                     </div>
