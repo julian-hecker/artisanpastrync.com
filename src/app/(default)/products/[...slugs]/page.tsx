@@ -4,8 +4,11 @@ import { Fragment } from 'react';
 import Stripe from 'stripe';
 
 import { Section } from '@/components/Section';
+import { JsonLd, JsonLdType } from '@/components/shared/json-ld';
 import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 import { TAGS } from '@/constants/cache-tags';
+import { classNames } from '@/constants/class-names';
+import { SITE_URL } from '@/constants/environment';
 import { formatPrices } from '@/lib/stripe/utils';
 import { nameToSlug } from '@/lib/utils';
 import { getProductBySlug, getAllProducts, getAllProductVariants } from '@/services/product';
@@ -14,7 +17,6 @@ import { VariantsSection } from '../_components/variants-section';
 import { ProductTitle } from '../_components/product-title';
 import { ProductImages } from '../_components/product-images';
 import { AddToCartButton } from '../_components/add-to-cart-button';
-import { classNames } from '@/constants/class-names';
 
 const getProductBySlugCached = unstable_cache((slug: string) => getProductBySlug(slug), [], {
     tags: [TAGS.products],
@@ -49,8 +51,11 @@ export default async function Product({ params }: ProductDetailsPageProps) {
     const hasOnlyOneVariant = variants.length <= 1;
     const selectedPrice = selected ? formatPrices([selected]) : formatPrices(variants);
 
+    const productLd = await generateProductLd(product, variants);
+
     return (
         <Fragment>
+            <JsonLd schema={productLd} />
             <Section as='nav' className={classNames.colors3}>
                 <Section.Content className='flex flex-row justify-between py-4'>
                     <Breadcrumbs items={makeBreadcrumbs(product)} />
@@ -91,6 +96,54 @@ function makeBreadcrumbs(product: Stripe.Product) {
         Products: '/products',
         [product.name]: '',
     };
+}
+
+async function generateProductLd(
+    product: Stripe.Product,
+    variants?: Stripe.Price[]
+): Promise<JsonLdType> {
+    return {
+        '@context': 'https://schema.org',
+        '@type': 'ProductGroup',
+        name: product.name,
+        image: product.images,
+        description: product?.description ?? undefined,
+        productGroupID: product.id,
+        hasVariant: variants?.map((variant) => ({
+            '@type': 'Product',
+            name: variant.nickname ?? product.name,
+            description: product?.description ?? undefined,
+            image: product.images,
+            offers: {
+                '@type': 'Offer',
+                url: `${SITE_URL}/products/${nameToSlug(product.name)}`,
+                priceCurrency: 'USD',
+                price: variant?.unit_amount ? variant.unit_amount / 100 : undefined,
+                priceValidUntil: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30).toISOString(), // todo: fetch from stripe?
+                itemCondition: 'https://schema.org/NewCondition',
+                availability: 'https://schema.org/InStock',
+                applicableCountry: 'US',
+                hasMerchantReturnPolicy: {
+                    '@type': 'MerchantReturnPolicy',
+                    applicableCountry: 'US',
+                    returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
+                },
+                shippingDetails: {
+                    '@type': 'OfferShippingDetails',
+                    shippingRate: {
+                        '@type': 'MonetaryAmount',
+                        value: 25, // todo: fetch shipping price from stripe?
+                        currency: 'USD',
+                    },
+                    shippingDestination: {
+                        '@type': 'DefinedRegion',
+                        addressCountry: 'US',
+                        addressRegion: ['27587'],
+                    },
+                },
+            },
+        })),
+    } as JsonLdType;
 }
 
 // todo: variant descriptions, images, etc
