@@ -17,6 +17,7 @@ import { VariantsSection } from '../_components/variants-section';
 import { ProductTitle } from '../_components/product-title';
 import { ProductImages } from '../_components/product-images';
 import { AddToCartButton } from '../_components/add-to-cart-button';
+import { getVariantPath } from '../_components/utils';
 
 const getProductBySlugCached = unstable_cache((slug: string) => getProductBySlug(slug), [], {
     tags: [TAGS.products],
@@ -111,12 +112,12 @@ async function generateProductLd(
         productGroupID: product.id,
         hasVariant: variants?.map((variant) => ({
             '@type': 'Product',
-            name: variant.nickname ?? product.name,
+            name: product.name + (variant.nickname ? ` - ${variant.nickname}` : ''),
             description: product?.description ?? undefined,
             image: product.images,
             offers: {
                 '@type': 'Offer',
-                url: `${SITE_URL}/products/${nameToSlug(product.name)}`,
+                url: `${SITE_URL}${getVariantPath(product.name, variant.nickname)}`,
                 priceCurrency: 'USD',
                 price: variant?.unit_amount ? variant.unit_amount / 100 : undefined,
                 priceValidUntil: new Date(Date.now() + 1000 * 60 * 60 * 24 * 30).toISOString(), // todo: fetch from stripe?

@@ -2,9 +2,10 @@
 
 import Stripe from 'stripe';
 
-import { cn, nameToSlug } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 
 import { Variant } from './variant';
+import { getVariantPath } from './utils';
 
 interface VariantsSectionProps {
     product: Stripe.Product;
@@ -12,10 +13,6 @@ interface VariantsSectionProps {
     className?: string;
     selectedVariant: Stripe.Price | undefined;
 }
-
-const getVariantPath = (productName: string, variantName: string | null): string => {
-    return `/products/${nameToSlug(productName)}${variantName ? '/' + nameToSlug(variantName) : ''}`;
-};
 
 export function VariantsSection({
     product,
