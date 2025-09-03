@@ -36,14 +36,14 @@ export default function Home() {
                 <Section.Content className={classNames.twoColumns}>
                     <div>
                         <p>
-                            Artisan Pastry LLC is a women-owned, mother-daughter pastry shop based
-                            in Wake Forest, NC. Inspired by a lack of quality pastry shops in the
-                            Triangle and our rich baking heritage, we offer a variety of cookies,
-                            cakes, and pastries. All treats are made from scratch with high-quality,
-                            seasonal, and locally sourced ingredients, setting us apart with our
-                            commitment to whole, real ingredients. We also participate in monthly
-                            farmers&apos; markets to connect with the community.
-                        </p>
+                            Artisan Pastry LLC is a women-owned, mother-daughter bakery in Wake
+                            Forest, NC. Inspired by our family's love of baking and a desire to
+                            share delicious treats with our community, we offer a wide variety of
+                            cookies, cakes, and pastries. Every item is made from scratch using
+                            high-quality, seasonal, and locally sourced ingredients. We're
+                            passionate about real, wholesome baking and love connecting with our
+                            neighbors at the occasional farmers' market.
+                        </p>{' '}
                         <Button variant='default' className='mt-8' asChild>
                             <Link href='/about'>Learn More</Link>
                         </Button>
